@@ -95,7 +95,7 @@ function EmpreendimentoCard({ e, i }) {
         {e.construtora && (
           <span className="text-[10px] tracking-[0.2em] uppercase text-sand mb-3">{e.construtora}</span>
         )}
-        <h3 className="font-display text-[1.9rem] leading-tight tracking-tight">{e.nome}</h3>
+        <h3 translate="no" className="notranslate font-display text-[1.9rem] leading-tight tracking-tight">{e.nome}</h3>
         <p className="text-bone/60 text-[14px] leading-relaxed mt-2">{e.desc}</p>
         <span className="arrow-link arrow-link--light mt-6 text-[13px]">
           Quero saber mais <ArrowUpRight size={15} />
