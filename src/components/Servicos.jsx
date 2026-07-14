@@ -1,72 +1,65 @@
-import { Home, Search, FileCheck, Handshake } from "lucide-react"
+import { Search, Home, FileCheck, Handshake, TrendingUp, Key, ArrowUpRight } from "lucide-react"
+import { useScrollReveal } from "../hooks/useAnimations"
 
-function Servicos() {
+const servicos = [
+  { icon: Search, n: "01", titulo: "Busca personalizada", texto: "Seleção de imóveis alinhada ao seu perfil, rotina e orçamento — sem perda de tempo." },
+  { icon: Home, n: "02", titulo: "Compra & venda", texto: "Assessoria completa em todas as etapas, do primeiro contato ao registro em cartório." },
+  { icon: FileCheck, n: "03", titulo: "Documentação segura", texto: "Toda a parte jurídica conferida com transparência e segurança absoluta." },
+  { icon: Handshake, n: "04", titulo: "Negociação ética", texto: "Condições justas e proteção real dos seus interesses em cada transação." },
+  { icon: TrendingUp, n: "05", titulo: "Consultoria de investimento", texto: "Análise de valorização e seleção das melhores oportunidades do mercado." },
+  { icon: Key, n: "06", titulo: "Imóveis na planta", texto: "Acesso aos melhores lançamentos e pré-vendas das incorporadoras de Sergipe." },
+]
 
-  const servicos = [
-    {
-      icon: <Search size={22} />,
-      titulo: "Busca personalizada",
-      texto: "Encontramos imóveis que realmente atendem ao seu perfil e orçamento."
-    },
-    {
-      icon: <Home size={22} />,
-      titulo: "Compra e venda",
-      texto: "Assessoria completa em todas as etapas da negociação."
-    },
-    {
-      icon: <FileCheck size={22} />,
-      titulo: "Documentação",
-      texto: "Acompanhamento de toda a parte legal e burocrática."
-    },
-    {
-      icon: <Handshake size={22} />,
-      titulo: "Negociação segura",
-      texto: "Garantimos transparência e segurança em cada transação."
-    },
-  ]
+export default function Servicos() {
+  const ref = useScrollReveal({ threshold: 0.08 })
 
   return (
-    <section id="servicos" className="py-24 bg-light">
-      <div className="max-w-6xl mx-auto px-6">
+    <section id="servicos" className="bg-sand py-16 sm:py-24 lg:py-36" ref={ref}>
+      <div className="max-w-[1400px] mx-auto px-6 lg:px-10">
 
-        <div className="text-center mb-14">
-          <h2 className="text-4xl md:text-5xl font-heading font-bold text-primary gold-line-center">
-            Como posso te ajudar
-          </h2>
-
-          <p className="text-gray-500 mt-5 max-w-xl mx-auto text-sm">
-            Um atendimento completo para quem deseja comprar, vender ou investir
-            em imóveis com segurança em Sergipe.
-          </p>
+        <div className="grid lg:grid-cols-12 gap-8 items-end mb-14 lg:mb-20">
+          <div className="lg:col-span-8">
+            <span className="reveal eyebrow">Como posso ajudar</span>
+            <h2 className="reveal reveal-delay-1 mt-6 font-display text-ink font-light tracking-tight leading-[0.98] text-[clamp(2.2rem,5.5vw,4.6rem)]">
+              Um serviço completo,<br />
+              <span className="display-italic text-olive">do desejo às chaves</span>.
+            </h2>
+          </div>
+          <div className="lg:col-span-4">
+            <p className="reveal reveal-delay-2 text-stone text-[15px] leading-relaxed">
+              Seja para comprar, vender ou investir, cada etapa é conduzida com método,
+              discrição e atenção aos detalhes.
+            </p>
+          </div>
         </div>
 
-        <div className="grid md:grid-cols-4 gap-8">
+        {/* lista editorial */}
+        <div className="border-t border-line/80">
+          {servicos.map((s, i) => {
+            const Icon = s.icon
+            return (
+              <a
+                key={s.n}
+                href="#contato"
+                className={`reveal reveal-delay-${(i % 3) + 1} group grid grid-cols-[auto_1fr_auto] md:grid-cols-[5rem_1fr_2fr_auto] items-center gap-5 md:gap-8 py-7 md:py-8 border-b border-line/80 transition-colors hover:bg-paper/60 px-2 md:px-4 -mx-2 md:-mx-4 rounded-lg`}
+              >
+                <span className="index-num text-stone text-sm group-hover:text-olive transition-colors">{s.n}</span>
 
-          {servicos.map((s, i) => (
-            <div
-              key={i}
-              className="bg-white rounded-2xl p-6 shadow-card text-center card-premium"
-            >
-              <div className="w-12 h-12 bg-accent/10 text-accent rounded-xl flex items-center justify-center mx-auto mb-4">
-                {s.icon}
-              </div>
+                <h3 className="font-display text-ink text-[clamp(1.4rem,2.6vw,2.1rem)] leading-tight tracking-tight">
+                  {s.titulo}
+                </h3>
 
-              <h3 className="font-semibold text-primary mb-2">
-                {s.titulo}
-              </h3>
+                <p className="hidden md:block text-stone text-[14px] leading-relaxed max-w-md">{s.texto}</p>
 
-              <p className="text-gray-500 text-sm">
-                {s.texto}
-              </p>
-
-            </div>
-          ))}
-
+                <span className="grid place-items-center w-11 h-11 rounded-full border border-line text-ink/70 group-hover:bg-olive group-hover:text-bone group-hover:border-olive transition-all">
+                  <Icon size={17} className="group-hover:hidden" />
+                  <ArrowUpRight size={17} className="hidden group-hover:block" />
+                </span>
+              </a>
+            )
+          })}
         </div>
-
       </div>
     </section>
   )
 }
-
-export default Servicos

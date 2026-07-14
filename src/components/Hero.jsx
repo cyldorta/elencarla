@@ -1,86 +1,109 @@
-import { ArrowDown, Star, MapPin, TrendingUp, Home } from "lucide-react"
+import { useEffect, useRef } from "react"
+import { ArrowDown, ArrowUpRight, MapPin } from "lucide-react"
+import { useMagnetic } from "../hooks/useAnimations"
+import { waLink } from "../utils/whatsapp"
 import video from "../assets/aracaju.mp4"
 
 export default function Hero() {
+  const ctaRef = useMagnetic(0.25)
+  const titleRef = useRef(null)
+  const WHATSAPP = waLink()
 
-  const stats = [
-    { icon: <Home size={16} />, value: "120+", label: "Imóveis vendidos" },
-    { icon: <TrendingUp size={16} />, value: "5 anos", label: "de experiência" },
-    { icon: <Star size={16} />, value: "98%", label: "satisfação" }
-  ]
+  useEffect(() => {
+    const t = setTimeout(() => titleRef.current?.classList.add("visible"), 280)
+    const els = document.querySelectorAll(".hero-stagger")
+    els.forEach((el, i) => {
+      setTimeout(() => {
+        el.style.opacity = "1"
+        el.style.transform = "none"
+      }, 560 + i * 110)
+    })
+    return () => clearTimeout(t)
+  }, [])
+
+  const stagger = { opacity: 0, transform: "translateY(18px)", transition: "opacity .9s var(--ease), transform .9s var(--ease)" }
 
   return (
-    <section className="relative h-screen flex items-center justify-center text-white text-center overflow-hidden">
+    <section id="top" className="relative min-h-[100svh] overflow-hidden text-bone">
 
-      <video autoPlay muted loop playsInline className="absolute w-full h-full object-cover">
+      {/* VÍDEO FULLSCREEN */}
+      <video autoPlay muted loop playsInline className="absolute inset-0 w-full h-full object-cover">
         <source src={video} type="video/mp4" />
       </video>
 
-      <div className="absolute inset-0 bg-gradient-to-b from-black/70 via-black/50 to-black/80" />
+      {/* OVERLAYS — legibilidade editorial */}
+      <div className="absolute inset-0 bg-ink/40" />
+      <div className="absolute inset-0 bg-gradient-to-t from-ink/85 via-ink/25 to-ink/55" />
 
-      <div className="relative z-10 max-w-3xl px-6">
+      {/* CONTEÚDO */}
+      <div className="relative z-10 min-h-[100svh] max-w-[1400px] mx-auto px-6 lg:px-10 pt-28 sm:pt-28 lg:pt-32 pb-8 sm:pb-10 flex flex-col">
 
-        <div className="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm border border-white/20 rounded-full px-4 py-1.5 mb-6">
-          <MapPin size={13} className="text-accent" />
-          <span className="text-xs uppercase">Sergipe, Brasil</span>
+        {/* meta topo */}
+        <div className="flex items-center justify-between">
+          <span className="hero-stagger eyebrow eyebrow--light" style={stagger}>Corretora Imobiliária · Sergipe</span>
+          <span className="hero-stagger hidden sm:inline-flex items-center gap-2 text-[12px] text-bone/70 tracking-wide" style={stagger}>
+            <span className="relative flex w-2 h-2">
+              <span className="absolute inline-flex w-full h-full rounded-full bg-sand opacity-70 animate-ping" />
+              <span className="relative inline-flex w-2 h-2 rounded-full bg-sand" />
+            </span>
+            Atendendo Grande Aracaju
+          </span>
         </div>
 
-        <div className="flex justify-center mb-6">
-          <div className="relative">
-            <div className="w-28 h-28 rounded-full border-2 border-accent overflow-hidden">
-              <img src="/fotocelular.png" alt="João Silva" className="w-full h-full object-cover" />
-            </div>
+        {/* bloco principal */}
+        <div className="mt-auto">
+          <h1
+            ref={titleRef}
+            className="word-reveal font-display font-light tracking-tight leading-[0.96] lg:leading-[0.94] text-[clamp(2.5rem,8.5vw,8.5rem)]"
+          >
+            <span style={{ transitionDelay: ".02s" }}>O&nbsp;endereço&nbsp;</span>
+            <span style={{ transitionDelay: ".10s" }}>certo</span>
+            <br />
+            <span className="display-italic text-sand" style={{ transitionDelay: ".20s" }}>encontra&nbsp;</span>
+            <span style={{ transitionDelay: ".30s" }}>você.</span>
+          </h1>
 
-            <div className="absolute -bottom-1 -right-1 w-8 h-8 bg-accent rounded-full flex items-center justify-center">
-              <Star size={14} className="text-primary fill-primary" />
+          <div className="mt-8 lg:mt-10 grid lg:grid-cols-12 gap-8 items-end">
+            <p className="hero-stagger lg:col-span-5 text-bone/70 text-[15px] leading-relaxed max-w-md" style={stagger}>
+              Mais que vender imóveis, conduzo cada cliente pela decisão mais importante
+              da sua vida — com seleção criteriosa, segurança jurídica e atendimento sob medida.
+            </p>
+
+            <div className="hero-stagger lg:col-span-7 flex flex-wrap items-center gap-3 lg:justify-end" style={stagger}>
+              <span ref={ctaRef} className="inline-block">
+                <a href={WHATSAPP} target="_blank" rel="noopener noreferrer" className="btn-light">
+                  Falar com a Elen
+                  <ArrowUpRight size={16} />
+                </a>
+              </span>
+              <a href="#imoveis" className="btn-ghost btn-ghost--light">Ver imóveis</a>
             </div>
           </div>
         </div>
 
-        <p className="text-sm uppercase text-accent mb-3">
-          João Silva Santos Dorta · CRECI 123456-SP
-        </p>
-
-        <h1 className="text-4xl md:text-6xl font-bold mb-4">
-          Seu imóvel dos <span className="gold-shimmer">sonhos</span> em Sergipe
-        </h1>
-
-        <p className="text-white/70 mb-8">
-          Especialista em imóveis residenciais e comerciais há mais de 5 anos.
-        </p>
-
-        <div className="flex flex-col sm:flex-row gap-4 justify-center">
-
-          <a
-            href="#servicos"
-            className="flex items-center gap-2 border-2 border-white px-8 py-3 rounded-full"
-          >
-            <Home size={16} />
-            Ver Serviços
-          </a>
-
-          <a
-            href="#contato"
-            className="flex items-center gap-2 bg-accent text-primary px-8 py-3 rounded-full"
-          >
-            Quero Ser Atendido
-            <ArrowDown size={16} />
-          </a>
-
-        </div>
-
-        <div className="flex justify-center gap-8 mt-12">
-          {stats.map((s,i)=>(
-            <div key={i} className="text-center">
-              <div className="flex gap-1 justify-center text-accent">
-                {s.icon}
-                <span className="font-bold">{s.value}</span>
+        {/* rodapé do hero */}
+        <div className="hero-stagger mt-10 lg:mt-12 flex items-end justify-between border-t border-white/15 pt-6" style={stagger}>
+          <div className="flex gap-8 sm:gap-12">
+            {[
+              { v: "2 anos", l: "de mercado" },
+              { v: "CRECI 6884", l: "PF/SE" },
+            ].map((s, i) => (
+              <div key={i}>
+                <p className="font-display text-xl sm:text-2xl text-bone leading-none">{s.v}</p>
+                <p className="text-[10px] sm:text-[11px] text-bone/50 tracking-wide uppercase mt-1.5">{s.l}</p>
               </div>
-              <span className="text-xs text-white/60">{s.label}</span>
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
 
+          <a href="#sobre" className="hidden sm:flex flex-col items-center gap-2 text-bone/60 hover:text-bone transition-colors">
+            <span className="text-[10px] tracking-[0.3em] uppercase">Role</span>
+            <ArrowDown size={15} className="animate-bounce" />
+          </a>
+
+          <div className="sm:hidden flex items-center gap-2 text-bone/70 text-[11px]">
+            <MapPin size={12} className="text-sand" /> Aracaju · SE
+          </div>
+        </div>
       </div>
     </section>
   )

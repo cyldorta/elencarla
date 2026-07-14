@@ -1,99 +1,96 @@
-import { MapPin, Award, Users, MessageCircle, CheckCircle } from "lucide-react"
+import { ArrowUpRight } from "lucide-react"
+import { useScrollReveal, useParallax, useCountUp } from "../hooks/useAnimations"
+import { waLink } from "../utils/whatsapp"
+
+const principios = [
+  { n: "01", t: "Seleção, não catálogo", d: "Apresento apenas o que faz sentido para o seu perfil, estilo de vida e orçamento." },
+  { n: "02", t: "Segurança em cada etapa", d: "Documentação, due diligence e registro acompanhados de perto, sem surpresas." },
+  { n: "03", t: "Negociação com transparência", d: "Condições justas, comunicação clara e sua decisão sempre no centro." },
+]
 
 export default function Sobre() {
-
-  const diferenciais = [
-    "Atendimento personalizado",
-    "Documentação sem burocracia",
-    "Negociação transparente",
-    "Parceria com os melhores lançamentos",
-  ]
+  const ref = useScrollReveal({ threshold: 0.12 })
+  const WHATSAPP = waLink()
+  const imgParallax = useParallax(0.06, 32)
+  const anos = useCountUp(2, { suffix: "" })
 
   return (
-    <section id="sobre" className="py-24 bg-white overflow-hidden">
-      <div className="max-w-6xl mx-auto px-6 grid md:grid-cols-2 gap-16 items-center">
+    <section id="sobre" className="bg-bone py-16 sm:py-24 lg:py-36 overflow-hidden" ref={ref}>
+      <div className="max-w-[1400px] mx-auto px-6 lg:px-10">
 
-        {/* IMAGEM COM DECORAÇÃO */}
-        <div className="relative animate-slide-right">
-          <div className="relative rounded-2xl overflow-hidden shadow-card">
-            <img
-              src="/fotocelular.png"
-              alt="Corretor João"
-              className="w-full object-cover"
-            />
-            {/* Badge flutuante */}
-            <div className="absolute bottom-6 left-6 bg-white/95 backdrop-blur-sm rounded-xl px-4 py-3 shadow-card flex items-center gap-3 animate-float">
-              <div className="w-10 h-10 bg-accent/15 rounded-full flex items-center justify-center">
-                <Award size={18} className="text-accent" />
-              </div>
-              <div>
-                <p className="text-xs text-gray-500 font-medium">Corretor Certificado</p>
-                <p className="text-sm font-bold text-primary">CRECI 123456-SP</p>
-              </div>
-            </div>
+        {/* cabeçalho */}
+        <div className="grid lg:grid-cols-12 gap-8 items-end mb-16 lg:mb-24">
+          <div className="lg:col-span-7">
+            <span className="reveal eyebrow">Quem conduz</span>
+            <h2 className="reveal reveal-delay-1 mt-6 font-display text-ink font-light tracking-tight leading-[0.98] text-[clamp(2.2rem,5.5vw,4.6rem)]">
+              Elen Carla Reis,<br />
+              <span className="display-italic text-olive">corretora de confiança</span> em Sergipe.
+            </h2>
           </div>
-          {/* Elemento decorativo atrás */}
-          <div className="absolute -bottom-6 -left-6 w-48 h-48 bg-accent/8 rounded-2xl -z-10" />
-          <div className="absolute -top-6 -right-6 w-32 h-32 bg-primary/5 rounded-full -z-10" />
+          <div className="lg:col-span-5">
+            <p className="reveal reveal-delay-2 text-stone text-[15px] leading-relaxed lg:pl-8 lg:border-l border-line">
+              Há dois anos unindo conhecimento técnico e sensibilidade humana para guiar
+              pessoas na decisão financeira mais importante de suas vidas — com clareza,
+              cuidado e resultado.
+            </p>
+          </div>
         </div>
 
-        {/* CONTEÚDO */}
-        <div className="animate-fade-up">
+        {/* corpo: imagem + princípios */}
+        <div className="grid lg:grid-cols-12 gap-10 lg:gap-16 items-stretch">
 
-          <div className="inline-flex items-center gap-2 bg-accent/10 text-accent rounded-full px-4 py-1.5 text-xs font-semibold tracking-wider uppercase mb-4">
-            <MapPin size={12} />
-            Sergipe · Imóveis
-          </div>
-
-          <h2 className="text-4xl md:text-5xl font-heading font-bold text-primary mb-2 gold-line">
-            João Silva<br />Santos Dorta
-          </h2>
-
-          <p className="text-accent font-semibold text-sm tracking-wide mt-4 mb-5">
-            5 anos transformando sonhos em endereços
-          </p>
-
-          <p className="text-gray-600 leading-relaxed mb-8">
-            Especialista no mercado imobiliário de Sergipe, João une conhecimento técnico
-            e sensibilidade humana para guiar cada cliente na mais importante decisão
-            financeira de sua vida — com segurança, clareza e resultado.
-          </p>
-
-          {/* DIFERENCIAIS */}
-          <ul className="space-y-3 mb-8">
-            {diferenciais.map((item, i) => (
-              <li key={i} className="flex items-center gap-3 text-gray-700 text-sm">
-                <CheckCircle size={16} className="text-accent flex-shrink-0" />
-                {item}
-              </li>
-            ))}
-          </ul>
-
-          {/* STATS INLINE */}
-          <div className="flex gap-8 mb-8">
-            {[
-              { icon: <Users size={18} className="text-accent" />,   value: "200+", label: "Clientes atendidos" },
-              { icon: <Award size={18} className="text-accent" />,   value: "5★",   label: "Avaliação média"   },
-            ].map((s, i) => (
-              <div key={i} className="flex items-center gap-3">
-                <div className="w-10 h-10 bg-accent/10 rounded-xl flex items-center justify-center">
-                  {s.icon}
-                </div>
-                <div>
-                  <p className="font-bold text-primary text-lg leading-none">{s.value}</p>
-                  <p className="text-gray-500 text-xs mt-0.5">{s.label}</p>
-                </div>
+          {/* retrato */}
+          <div className="lg:col-span-5 reveal-scale">
+            <div ref={imgParallax} className="relative will-change-transform">
+              <div className="media-frame aspect-[4/5]">
+                <img src="/fotocelular.png" alt="Elen Carla Reis — corretora de imóveis" />
               </div>
-            ))}
+              {/* selo credencial */}
+              <div className="absolute bottom-4 right-4 lg:-bottom-5 lg:right-5 z-10 bg-paper shadow-lift rounded-xl lg:rounded-2xl px-4 py-3 lg:px-5 lg:py-4 float-soft">
+                <p className="text-[9px] lg:text-[10px] text-stone tracking-[0.2em] uppercase">Certificada</p>
+                <p className="font-display text-ink text-sm lg:text-base leading-none mt-1 whitespace-nowrap">CRECI 6884 PF/SE</p>
+              </div>
+              <div className="absolute -top-6 -left-6 w-24 h-24 border border-line rounded-full spin-slow -z-0" />
+            </div>
           </div>
 
-          <a
-            href="https://wa.me/5579987654321"
-            className="inline-flex items-center gap-3 bg-accent hover:bg-gold text-primary font-bold px-8 py-4 rounded-full transition-all duration-300 shadow-gold hover:shadow-lg group"
-          >
-            <MessageCircle size={18} className="group-hover:scale-110 transition-transform" />
-            Falar no WhatsApp
-          </a>
+          {/* coluna direita */}
+          <div className="lg:col-span-7 flex flex-col">
+
+            {/* pull-quote */}
+            <blockquote className="reveal font-display text-ink font-light tracking-tight leading-[1.15] text-[clamp(1.6rem,3vw,2.6rem)]">
+              “A casa certa não é a mais cara. É aquela onde a sua vida cabe — e o seu
+              <span className="display-italic text-olive"> patrimônio cresce</span>.”
+            </blockquote>
+
+            {/* contadores */}
+            <div className="reveal reveal-delay-2 flex gap-12 mt-10 mb-12">
+              <div>
+                <p ref={anos} className="font-display text-5xl text-ink leading-none">0</p>
+                <p className="text-[12px] text-stone tracking-wide uppercase mt-3">Anos de mercado</p>
+              </div>
+            </div>
+
+            {/* princípios */}
+            <div className="border-t border-line">
+              {principios.map((p, i) => (
+                <div key={p.n} className={`reveal reveal-delay-${i + 1} grid grid-cols-[auto_1fr] gap-5 py-6 border-b border-line`}>
+                  <span className="index-num text-stone text-sm pt-1">{p.n}</span>
+                  <div>
+                    <h3 className="font-display text-ink text-xl">{p.t}</h3>
+                    <p className="text-stone text-[14px] leading-relaxed mt-1.5">{p.d}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+
+            <div className="reveal mt-10">
+              <a href={WHATSAPP} target="_blank" rel="noopener noreferrer" className="btn-primary">
+                Conversar com a Elen
+                <ArrowUpRight size={16} />
+              </a>
+            </div>
+          </div>
         </div>
       </div>
     </section>
