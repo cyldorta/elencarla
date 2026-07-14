@@ -11,7 +11,7 @@ export default function Contato() {
   const canais = [
     { icon: MessageCircle, label: "WhatsApp", valor: "(79) 9 9868-1888", href: WHATSAPP, ext: true },
     { icon: Mail, label: "E-mail", valor: "elen@elenreisimoveis.com.br", href: "mailto:elen@elenreisimoveis.com.br", ext: false },
-    { icon: Instagram, label: "Instagram", valor: "@elencarlareis.corretor", href: "https://instagram.com", ext: true },
+    { icon: Instagram, label: "Instagram", valor: "@elen.imoveiselotes", href: "https://www.instagram.com/elen.imoveiselotes", ext: true },
     { icon: MapPin, label: "Atendimento", valor: "Aracaju · Sergipe", href: WHATSAPP, ext: true },
   ]
 

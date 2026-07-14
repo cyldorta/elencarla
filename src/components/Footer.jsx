@@ -14,7 +14,7 @@ const nav = [
 export default function Footer() {
   const WHATSAPP = waLink()
   const social = [
-    { icon: Instagram, href: "https://instagram.com" },
+    { icon: Instagram, href: "https://www.instagram.com/elen.imoveiselotes" },
     { icon: MessageCircle, href: WHATSAPP },
     { icon: Mail, href: "mailto:elen@elenreisimoveis.com.br" },
   ]
